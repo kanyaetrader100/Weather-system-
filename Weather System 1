@@ -1,0 +1,23 @@
+import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+def get_current_weather():
+    print('\n*** Get Current Weather Conditions ***\n')
+    
+    city = input("\nPlease enter a city name:\n")
+    
+    request_url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={os.getenv("API_KEY")}&units=metric'
+    
+    print(request_url)
+
+    response = requests.get(request_url)
+    data = response.json()
+    print(f"City: {data['name']}")
+    print(f"Temperature: {data['main']['temp']}°C")
+    print(f"Weather: {data['weather'][0]['description']}")
+    print(f"Humidity: {data['main']['humidity']}%")
+    
+get_current_weather()
